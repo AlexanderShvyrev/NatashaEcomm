@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Cart = ({ cartItems, handleRemoveFromCart }) => {
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
@@ -9,9 +8,9 @@ const Cart = ({ cartItems, handleRemoveFromCart }) => {
       {cartItems.length === 0 ? (
         <div className="empty-cart">
           <h2>Ooops! Looks like your cart is empty!</h2>
-          <Link to="/" className="continue-shopping">
+          <a href="/" className="continue-shopping">
             Continue shopping
-          </Link>
+          </a>
         </div>
       ) : (
         <>
@@ -32,9 +31,9 @@ const Cart = ({ cartItems, handleRemoveFromCart }) => {
             ))}
           </ul>
           <div className="total-price">Total: ${totalPrice.toFixed(2)}</div>
-          <Link to="/" className="continue-shopping">
+          <a href="/" className="continue-shopping">
             Continue shopping
-          </Link>
+          </a>
         </>
       )}
     </div>

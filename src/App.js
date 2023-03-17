@@ -1,4 +1,3 @@
-import './App.css';
 import HomepageWithHardcodedProducts from './components/HomepageWithHardcodedProducts';
 
 function App() {
