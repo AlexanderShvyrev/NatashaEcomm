@@ -1,70 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Cart from './Cart';
 import { products } from '../utils/productArray'
 import './HomepageWithHardcodedProducts.css';
+import About from './About';
+import Products from './Products';
 
 const HomepageWithHardcodedProducts = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useMemo(() => {
+    const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+    document.title = cartItemsCount > 0 ? `(${cartItemsCount}) My Store` : 'My Store';
+  }, [cart]);
+
+  setTimeout(() => {
+    setLoading(false)
+  }, 1500);
 
   const handleAddToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    const existingProduct = cart.find((item) => item.id === product.id);
+    if (existingProduct) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
   };
 
-  const handleRemoveFromCart = (productId) => {
-    setCartItems(cartItems.filter((item) => item.id !== productId));
-  };
-
-  const cartCount = cartItems.reduce(
-    (acc, curr) => acc + curr.quantity,
-    0
-  );
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="homepage">
-      <nav>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
-            <a href="/cart" className="cart-link">
-              Cart
-              {cartItems.length > 0 && (
-                <span className="cart-badge">{cartItems.length}</span>
-              )}
-            </a>
-          </li>
-        </ul>
-      </nav>
-      {window.location.pathname === "/" && (
-        <div className="products-grid">
-          {products.map((product) => (
-            <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.title} />
-              <h2>{product.title}</h2>
-              <p>{product.description}</p>
-              <p>${product.price}</p>
-              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
-            </div>
-          ))}
+    <div className="container">
+      {loading ? (
+        <div className="center">
+          <h1>Loading...</h1>
         </div>
-      )}
-      {window.location.pathname === "/about" && (
-        <div>
-          <h1>About</h1>
-          <p>Welcome to our store! We specialize in providing high-quality products at affordable prices.</p>
-        </div>
-      )}
-      {window.location.pathname === "/cart" && (
-        <Cart
-          cartItems={cartItems}
-          handleRemoveFromCart={handleRemoveFromCart}
-        />
-      )}
-
+      ) : (
+          <Router>
+            <nav className="navbar">
+              <ul className='navbar-brand'>
+                <li className='navbar-item'>
+                  <Link to="/">Home</Link>
+                </li>
+                <li className='navbar-item'>
+                  <Link to="/about">About</Link>
+                </li>
+                <li className='navbar-item'>
+                  <Link to="/cart" className="cart-link">
+                    &#128722;
+                  {cartItemsCount > 0 && (
+                      <span className="cart-badge">{cartItemsCount}</span>
+                    )}
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <Routes>
+              <Route exact path="/" element={<Products products={products} handleAddToCart={handleAddToCart} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/cart" element={<Cart cartItems={cart} />} />
+            </Routes>
+          </Router>
+        )
+      }
     </div>
   );
 };
