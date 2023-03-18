@@ -1,14 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import CountContext from '../context/CountContext';
-import CartContext from '../context/CartContext';
 import Modal from './Modal';
 import './Modal.css';
 
-const ButtonWithModal = () => {
+const ButtonWithModal = ({ setCart, setCount }) => {
     const [showModal, setShowModal] = useState(false);
-    const { setCart } = useContext(CartContext);
-    const { setCount } = useContext(CountContext);
     const [showThanksMessage, setShowThanksMessage] = useState(false);
 
     const handleModalToggle = () => {

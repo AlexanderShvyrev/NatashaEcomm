@@ -60,7 +60,7 @@ const Cart = ({ cartItems, setCart, setCount }) => {
               </button>
               <CartProvider value={{ cart, setCart }}>
                 <CountProvider value={{ count, setCount }}>
-                  <ButtonWithModal />
+                  <ButtonWithModal setCart={setCart} setCount={setCount} />
                 </CountProvider>
               </CartProvider>
             </div>
