@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import CountProvider from '../context/CountProvider';
+import CartProvider from '../context/CartProvider';
+import CountContext from '../context/CountContext';
+import CartContext from '../context/CartContext';
 import './Cart.css';
 import ButtonWithModal from './ButtonWithModal';
 
-const Cart = ({ cartItems }) => {
+const Cart = ({ cartItems, setCart, setCount }) => {
   const [items, setItems] = useState(cartItems);
+  const { cart } = useContext(CartContext);
+  const { count } = useContext(CountContext);
 
-  const totalPrice = items.reduce((total, item) => total + item.price, 0);
+  const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const handleRemoveFromCart = (productId) => {
     const updatedItems = items.filter((item) => item.id !== productId);
     setItems(updatedItems);
+    setCart(updatedItems);
+    setCount(updatedItems.length);
+    if (!updatedItems || updatedItems.length < 1) {
+      setItems([]);
+      setCount(0);
+      setCart([]);
+    };
   };
 
   return (
@@ -17,9 +31,6 @@ const Cart = ({ cartItems }) => {
       {items.length === 0 ? (
         <div className="empty-cart">
           <h2>Ooops! Looks like your cart is empty!</h2>
-          <a href="/" className="continue-shopping">
-            Continue shopping
-          </a>
         </div>
       ) : (
           <>
@@ -43,11 +54,15 @@ const Cart = ({ cartItems }) => {
             <div className="total-price">Total: ${totalPrice.toFixed(2)}</div>
             <div className="buttons">
               <button className="continue-shopping">
-                <a href="/">
+                <Link to="/" className="continue">
                   Continue shopping
-                </a>
+                    </Link>
               </button>
-              <ButtonWithModal />
+              <CartProvider value={{ cart, setCart }}>
+                <CountProvider value={{ count, setCount }}>
+                  <ButtonWithModal />
+                </CountProvider>
+              </CartProvider>
             </div>
           </>
         )}
