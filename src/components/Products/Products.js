@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Products.css';
+import ProductInfo from '../ProductInfo';
 
 const Products = ({ products, handleAddToCart }) => {
 
@@ -7,7 +9,9 @@ const Products = ({ products, handleAddToCart }) => {
         <div className="products-grid">
             {products.map((product) => (
                 <div key={product.id} className="product-card">
-                    <img className="product-image" src={product.image} alt={product.title} />
+                    <Link to={`/product/${product.id}`} element={<ProductInfo product={product} />}>
+                        <img className="product-image" src={product.image} alt={product.title} />
+                    </Link>
                     <h2 className="product-title">{product.title}</h2>
                     <p className="product-info">{product.description}</p>
                     <p className="product-info">${product.price}</p>

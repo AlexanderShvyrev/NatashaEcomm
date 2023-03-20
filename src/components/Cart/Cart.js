@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import CountProvider from '../context/CountProvider';
-import CartProvider from '../context/CartProvider';
-import CountContext from '../context/CountContext';
-import CartContext from '../context/CartContext';
+import CountProvider from '../../context/CountProvider';
+import CartProvider from '../../context/CartProvider';
+import CountContext from '../../context/CountContext';
+import CartContext from '../../context/CartContext';
 import './Cart.css';
-import ButtonWithModal from './ButtonWithModal';
+import ButtonWithModal from '../Modal/ButtonWithModal';
 
 const Cart = ({ cartItems, setCart, setCount }) => {
   const [items, setItems] = useState(cartItems);

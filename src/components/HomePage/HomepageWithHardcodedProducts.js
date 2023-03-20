@@ -1,14 +1,15 @@
 import React, { useState, useMemo, useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import CountContext from '../context/CountContext';
-import CountProvider from '../context/CountProvider';
-import CartContext from '../context/CartContext';
-import CartProvider from '../context/CartProvider';
-import Cart from './Cart';
-import { products } from '../utils/productArray'
+import CountContext from '../../context/CountContext';
+import CountProvider from '../../context/CountProvider';
+import CartContext from '../../context/CartContext';
+import CartProvider from '../../context/CartProvider';
+import Cart from '../Cart/Cart';
+import { products } from '../../utils/productArray'
 import './HomepageWithHardcodedProducts.css';
-import About from './About';
-import Products from './Products';
+import About from '../About/About';
+import Products from '../Products/Products';
+import PageLoading from '../PageLoading/PageLoading';
 
 const HomepageWithHardcodedProducts = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -43,9 +44,7 @@ const HomepageWithHardcodedProducts = () => {
       <CountProvider value={{ count, setCount }}>
         <div className="container">
           {loading ? (
-            <div className="center">
-              <h1>Loading...</h1>
-            </div>
+            <PageLoading />
           ) : (
               <Router>
                 <nav className="navbar">
