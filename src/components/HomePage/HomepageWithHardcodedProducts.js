@@ -19,14 +19,18 @@ const HomepageWithHardcodedProducts = () => {
   const { count, setCount } = useContext(CountContext);
   const [loading, setLoading] = useState(true);
 
+
+  //Acesta este folosit pentru a afișa titlul paginii în fila browserului dvs
   useMemo(() => {
     document.title = count > 0 ? `(${count}) My Store` : 'My Store';
   }, [count]);
 
+  //Acesta este folosit pentru a falsifica procesul de încărcare a paginii
   setTimeout(() => {
     setLoading(false)
   }, 1500);
 
+  //Această funcție este folosită pentru a adăuga un articol în coș. De asemenea, verifică dacă articolul este deja în coș. Daca isi creste cantitatea
   const handleAddToCart = (product) => {
     const existingProduct = cart.find((item) => item.id === product.id);
     if (existingProduct) {
@@ -71,11 +75,13 @@ const HomepageWithHardcodedProducts = () => {
                     </li>
                   </ul>
                 </nav>
+                {/* Acest bloc de cod este responsabil pentru toată rutarea paginii */}
                 <Routes>
                   <Route exact path="/" element={<Products products={products} handleAddToCart={handleAddToCart} />} />
                   <Route exact path="/about" element={<About />} />
                   <Route exact path="/cart" element={<Cart cartItems={cart} setCart={setCart} setCount={setCount} />} />
                   <Route exact path="/products/:id" element={<ProductInfo products={products} handleAddToCart={handleAddToCart} />} />
+                  <Route exact path="/products/favorites/:id" element={<ProductInfo products={products} handleAddToCart={handleAddToCart} />} />
                   <Route exact path="/favorites" element={<Favorites handleAddToCart={handleAddToCart} />} />
                 </Routes>
               </Router>

@@ -8,6 +8,7 @@ import './Products.css';
 const Products = ({ products, handleAddToCart }) => {
     const { favorites, setFavorites } = useContext(FavoritesContext);
 
+    //Se ocupă de adăugarea la favorite atunci când s-a făcut clic pe pictograma inimii
     const handleAddToFavorites = (product) => {
         setFavorites([...favorites, product]);
         product.isFavorite = true;

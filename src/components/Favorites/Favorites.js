@@ -12,7 +12,7 @@ const Favorites = ({ handleAddToCart }) => {
             <div className="fav-card">
                 {favorites.length > 0 ? favorites.map((item) => (
                     <div key={item.id} className="info-item-container">
-                        <Link to={`/products/${item.id}`}>
+                        <Link to={`/products/favorites/${item.id}`}>
                             <img className="item-image" src={item.image} alt={item.title} />
                         </Link>
                         <h3 className="item-title">{item.title}</h3>

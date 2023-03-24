@@ -5,12 +5,15 @@ import './ProductInfo.css'
 const ProductInfo = ({ products, handleAddToCart }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    //Obținerea ID-ului produsului de la adresa URL
     const splitUrl = location.pathname.split('/');
-    const id = parseInt(splitUrl[2]);
+    const id = location.pathname.indexOf('favorites') !== -1 ? parseInt(splitUrl[3]) : parseInt(splitUrl[2]);
+    //găsirea id-ului de la url în matricea de produse
     const product = products.find((product) => product.id === id);
 
+    //Manerele butonul din spate. Pagina navighează înapoi la Favorite dacă informațiile despre produs au fost deschise din pagina „Preferate”.
     const handleGoingBack = () => {
-        navigate("/favorites");
+        location.pathname.indexOf('favorites') !== -1 ? navigate("/favorites") : navigate("/");
     };
 
     return (

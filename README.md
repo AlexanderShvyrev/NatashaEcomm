@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+### Acesta nu este un cod ideal. Dacă găsiți erori, nu ezitați să mă contactați sau să încercați să le remediați singur. Acesta nu este conectat la baza de date și folosește în schimb valori codificate. Luați în considerare conectarea la Firebase ca teme pentru acasă :)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Noțiuni de bază
 
-## Available Scripts
+## Pentru a rula această aplicație pe mașina dvs. locală, va trebui să instalați următoarele:
 
-In the project directory, you can run:
+1. Node.js: Acesta este un mediu de rulare JavaScript care vă permite să rulați JavaScript pe mașina dvs. locală. Puteți descărca și instala Node.js de pe site-ul oficial: https://nodejs.org/en/download/.
 
-### `npm start`
+2. npm: Acesta este Node Package Manager, care este folosit pentru a instala și gestiona pachetele pentru aplicația dvs. npm este instalat automat când instalați Node.js.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Iată pașii pentru a bifurca acest depozit:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Accesați site-ul GitHub și conectați-vă la contul dvs.
+2. Navigați la acest depozit. https://github.com/AlexanderShvyrev/NatashaEcomm
+3. Faceți clic pe butonul „Fork” din colțul din dreapta sus al paginii. Aceasta va crea o copie a depozitului în propriul cont GitHub.
+4. Așteptați finalizarea procesului de bifurcare. Odată ce ați terminat, veți fi redirecționat către propria dvs. copie bifurcată a depozitului.
+5. Clonați depozitul bifurcat pe mașina dvs. locală folosind comanda `git clone`. De exemplu: `git clone https://github.com/your-username/forked-repo.git`
+6. După aceea, navigați în terminalul dvs. la folderul în care ați clonat acest depozit și rulați comanda `npm install`
+7. După ce rulează, puteți rula următoarea comandă `npm start`. Acesta va fi deschis în browserul dvs.
+7. Efectuați orice modificări doriți la fișierele din copia locală a depozitului.
+8. Commiteți modificările folosind comenzile git add și git commit.
+9. Introduceți modificările în propriul depozit bifurcat folosind comanda `git push`.
 
-### `npm test`
+### Pentru a rula această aplicație, utilizați `npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Rulează aplicația în modul de dezvoltare.\
+Deschideți [http://localhost:3000](http://localhost:3000) pentru a-l vizualiza în browser.
 
-### `npm run build`
+Pagina se va reîncărca când faceți modificări.\
+De asemenea, este posibil să vedeți erori de scame în consolă.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### În prezent, proiectul utilizează produse codificate. Puteți utiliza fișierul numit useFirebase.js pentru a vă conecta la baza de date Firebase. Trebuie doar să-l modificați în consecință
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Află mai multe
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Pentru a învăța React, consultați [React documentation](https://reactjs.org/).
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> Notă: folderul context gestionează valorile care trebuie accesate de mai multe pagini

@@ -15,9 +15,10 @@ const Cart = ({ cartItems, setCart, setCount }) => {
   const { count } = useContext(CountContext);
   let addButton = document.querySelectorAll("add");
 
+
+  //Această funcție este responsabilă pentru adăugarea cantității de produse în coș
   const handleAddQuantity = (product) => {
     if (product.quantity < 10) {
-
       let productToUpdate = items.find(item => item.id === product.id);
       let max = 10;
       let updatedItems;
@@ -55,6 +56,7 @@ const Cart = ({ cartItems, setCart, setCount }) => {
     };
   };
 
+  //Această funcție este responsabilă pentru scăderea cantității de produse din coș
   const handleSubstractQuantity = (product) => {
     let productToUpdate = items.find(item => item.id === product.id);
     if (productToUpdate.quantity > 1) {
@@ -77,8 +79,10 @@ const Cart = ({ cartItems, setCart, setCount }) => {
     setItems(updatedItems);
   }
 
+  //Calculează prețul total al tuturor produselor adăugate în coș
   const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  //Această funcție se ocupă de scoaterea produsului din coș
   const handleRemoveFromCart = (productId) => {
     const updatedItems = items.filter((item) => item.id !== productId);
     setItems(updatedItems);

@@ -7,15 +7,19 @@ const ButtonWithModal = ({ setCart, setCount }) => {
     const [showModal, setShowModal] = useState(false);
     const [showThanksMessage, setShowThanksMessage] = useState(false);
 
+
+    //arată sau ascunde fereastra modală
     const handleModalToggle = () => {
         setShowModal(!showModal);
     };
 
+    //Trimitere plată falsă
     const handleSubmit = (event) => {
         event.preventDefault();
         setShowThanksMessage(true);
     };
 
+    //Resetează totul când modal este închis
     const handleReset = () => {
         setShowThanksMessage(false);
         setCart([]);
