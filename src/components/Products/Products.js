@@ -1,24 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FaHeart } from 'react-icons/fa';
+import FavoritesContext from '../../context/FavoritesContext';
+import FavoritesProvider from '../../context/FavoritesProvider';
 import { Link } from 'react-router-dom';
 import './Products.css';
-import ProductInfo from '../ProductInfo';
 
 const Products = ({ products, handleAddToCart }) => {
+    const { favorites, setFavorites } = useContext(FavoritesContext);
 
+    const handleAddToFavorites = (product) => {
+        setFavorites([...favorites, product]);
+        product.isFavorite = true;
+    };
     return (
-        <div className="products-grid">
-            {products.map((product) => (
-                <div key={product.id} className="product-card">
-                    <Link to={`/product/${product.id}`} element={<ProductInfo product={product} />}>
-                        <img className="product-image" src={product.image} alt={product.title} />
-                    </Link>
-                    <h2 className="product-title">{product.title}</h2>
-                    <p className="product-info">{product.description}</p>
-                    <p className="product-info">${product.price}</p>
-                    <button className="product-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
-                </div>
-            ))}
-        </div>
+        <FavoritesProvider value={{ favorites, setFavorites }}>
+            <div className="products-grid">
+                {products.map((product) => (
+                    <div key={product.id} className="product-card">
+                        <Link
+                            to={`/products/${product.id}`}
+                        >
+                            <img className="product-image" src={product.image} alt={product.title} />
+                        </Link>
+                        <h2 className="product-title">{product.title}</h2>
+                        <p className="product-info">{product.description.substring(0, 80)}...</p>
+                        <p className="product-info">${product.price}<span> + shipping</span></p>
+                        <button className="product-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                        {product.isFavorite === false ? (
+                            <button className="favorites-button" onClick={() => handleAddToFavorites(product)}><FaHeart /></button>
+                        ) : (
+                                <span className="favorited">Added to your favorites</span>
+                            )}
+                    </div>
+                ))
+                }
+            </div>
+        </FavoritesProvider>
     );
 };
 

@@ -17,13 +17,13 @@
   right: 10px;
   background: none;
   border: none;
+  color: #cda9ac;
   font-size: 20px;
   cursor: pointer;
   outline: none;
 }
 
 .modal-close:hover{
-  background-color: #fff;
   font-weight: bold;
 }
 
@@ -73,21 +73,23 @@
 .modal-button {
   padding: 10px 20px;
   font-size: 16px;
+  border: 1px solid #cda9ac;
   border-radius: 4px;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #fff;
+  color: #cda9ac;
   cursor: pointer;
 }
 
 .modal-button:hover {
-  background-color: #0069d9;
+  background: #BA7E7E;
+  transition: all 0.4s ease-in-out;
+  color:#fff;
 }
 
 .checkout{
-  background-color: #0077cc;
-  color: #fff;
-  border: none;
+  background-color: #fff;
+  color: #cda9ac;
+  border: 1px solid #cda9ac;
   border-radius: 4px;
   padding: 10px 20px;
   text-decoration: none;
@@ -99,7 +101,9 @@
 }
 
 .checkout:hover{
-  background-color: #005ea8;
+  background: #BA7E7E;
+  transition: all 0.4s ease-in-out;
+  color:#fff;
 }
 
 .thanks-message {

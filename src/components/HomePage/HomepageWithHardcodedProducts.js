@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 import CountContext from '../../context/CountContext';
 import CountProvider from '../../context/CountProvider';
 import CartContext from '../../context/CartContext';
@@ -10,6 +11,8 @@ import './HomepageWithHardcodedProducts.css';
 import About from '../About/About';
 import Products from '../Products/Products';
 import PageLoading from '../PageLoading/PageLoading';
+import ProductInfo from '../ProductInfo/ProductInfo';
+import Favorites from '../Favorites/Favorites';
 
 const HomepageWithHardcodedProducts = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -29,7 +32,7 @@ const HomepageWithHardcodedProducts = () => {
     if (existingProduct) {
       setCart(
         cart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          (item.id === product.id && item.quantity < 10) ? { ...item, quantity: item.quantity + 1 } : item
         )
       );
     } else {
@@ -56,8 +59,11 @@ const HomepageWithHardcodedProducts = () => {
                       <Link to="/about">About</Link>
                     </li>
                     <li className='navbar-item'>
+                      <Link to="/favorites">Favorites</Link>
+                    </li>
+                    <li className='navbar-item'>
                       <Link to="/cart" className="cart-link">
-                        &#128722;
+                        <FaShoppingCart />
                         {count > 0 && (
                           <span className="cart-badge">{count}</span>
                         )}
@@ -67,8 +73,10 @@ const HomepageWithHardcodedProducts = () => {
                 </nav>
                 <Routes>
                   <Route exact path="/" element={<Products products={products} handleAddToCart={handleAddToCart} />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/cart" element={<Cart cartItems={cart} setCart={setCart} setCount={setCount} />} />
+                  <Route exact path="/about" element={<About />} />
+                  <Route exact path="/cart" element={<Cart cartItems={cart} setCart={setCart} setCount={setCount} />} />
+                  <Route exact path="/products/:id" element={<ProductInfo products={products} handleAddToCart={handleAddToCart} />} />
+                  <Route exact path="/favorites" element={<Favorites handleAddToCart={handleAddToCart} />} />
                 </Routes>
               </Router>
             )

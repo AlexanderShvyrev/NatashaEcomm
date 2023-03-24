@@ -1,15 +1,18 @@
-import HomepageWithHardcodedProducts from './components/HomepageWithHardcodedProducts';
+import HomepageWithHardcodedProducts from './components/HomePage/HomepageWithHardcodedProducts';
 import CountProvider from './context/CountProvider';
 import CartProvider from './context/CartProvider';
+import FavoritesProvider from './context/FavoritesProvider';
 
 function App() {
   return (
     <div className="App">
-      <CartProvider>
-        <CountProvider>
-          <HomepageWithHardcodedProducts />
-        </CountProvider>
-      </CartProvider>
+      <FavoritesProvider>
+        <CartProvider>
+          <CountProvider>
+            <HomepageWithHardcodedProducts />
+          </CountProvider>
+        </CartProvider>
+      </FavoritesProvider>
     </div>
   );
 };

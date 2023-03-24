@@ -1,16 +1,81 @@
 import React, { useState, useContext } from 'react';
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa';
 import CountProvider from '../../context/CountProvider';
 import CartProvider from '../../context/CartProvider';
 import CountContext from '../../context/CountContext';
-import CartContext from '../../context/CartContext';
 import './Cart.css';
 import ButtonWithModal from '../Modal/ButtonWithModal';
 
 const Cart = ({ cartItems, setCart, setCount }) => {
   const [items, setItems] = useState(cartItems);
-  const { cart } = useContext(CartContext);
+  const [updatedProduct, setUpdatedProduct] = useState({});
+  const [message, setMessage] = useState('');
   const { count } = useContext(CountContext);
+  let addButton = document.querySelectorAll("add");
+
+  const handleAddQuantity = (product) => {
+    if (product.quantity < 10) {
+
+      let productToUpdate = items.find(item => item.id === product.id);
+      let max = 10;
+      let updatedItems;
+      productToUpdate.quantity += 1;
+      if (productToUpdate.quantity >= max) {
+        setMessage("You've reached the limit of items that can be added at the same time");
+        addButton.disabled = true;
+        productToUpdate = 10;
+        setUpdatedProduct(productToUpdate);
+        updatedItems = items.map(item => {
+          if (item.id === productToUpdate.id) {
+            return {
+              ...item,
+              quantity: productToUpdate.quantity
+            };
+          }
+          return item;
+        });
+        setItems(updatedItems);
+      } else {
+        addButton.disabled = false;
+        setMessage("");
+        setUpdatedProduct(productToUpdate);
+        updatedItems = items.map(item => {
+          if (item.id === productToUpdate.id) {
+            return {
+              ...item,
+              quantity: productToUpdate.quantity
+            };
+          }
+          return item;
+        });
+        setItems(updatedItems);
+      };
+    };
+  };
+
+  const handleSubstractQuantity = (product) => {
+    let productToUpdate = items.find(item => item.id === product.id);
+    if (productToUpdate.quantity > 1) {
+      productToUpdate.quantity -= 1;
+    } else {
+      productToUpdate.quantity = 1;
+    };
+    setMessage("");
+    addButton.disabled = false;
+    setUpdatedProduct(productToUpdate);
+    let updatedItems = items.map(item => {
+      if (item.id === productToUpdate.id) {
+        return {
+          ...item,
+          quantity: productToUpdate.quantity
+        };
+      }
+      return item;
+    });
+    setItems(updatedItems);
+  }
 
   const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -30,43 +95,47 @@ const Cart = ({ cartItems, setCart, setCount }) => {
     <div className="cart">
       {items.length === 0 ? (
         <div className="empty-cart">
-          <h2>Ooops! Looks like your cart is empty!</h2>
+          <h3>Ooops! Looks like your cart is empty!</h3>
         </div>
       ) : (
-          <>
-            <h2>Your Cart</h2>
-            <ul className="cart-items">
-              {items.map((item) => (
-                <li key={item.id} className="cart-item">
-                  <img src={item.image} alt={item.title} />
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                    <p>Quantity: {item.quantity > 0 ? item.quantity : 1}</p>
-                    <p>${item.price.toFixed(2)}</p>
-                    <button onClick={() => handleRemoveFromCart(item.id)}>
-                      <span>&#128465;</span>
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="total-price">Total: ${totalPrice.toFixed(2)}</div>
-            <div className="buttons">
-              <button className="continue-shopping">
-                <Link to="/" className="continue">
-                  Continue shopping
-                    </Link>
-              </button>
-              <CartProvider value={{ cart, setCart }}>
-                <CountProvider value={{ count, setCount }}>
-                  <ButtonWithModal setCart={setCart} setCount={setCount} />
-                </CountProvider>
-              </CartProvider>
-            </div>
-          </>
-        )}
-    </div>
+          <CartProvider value={{ items, setCart }}>
+            <CountProvider value={{ count, setCount }}>
+              <h2>Your Cart</h2>
+              {message}
+              <ul className="cart-items">
+                {items.map((item) => (
+                  <li key={item.id} className="cart-item">
+                    <div className="add-buttons">
+                      <AiOutlinePlusCircle id="add" onClick={() => handleAddQuantity(item)} />
+                      <AiOutlineMinusCircle onClick={() => handleSubstractQuantity(item)} />
+                    </div>
+                    <img src={item.image} alt={item.title} />
+                    <div className="cart-item-info-container">
+                      <h3>{item.title}</h3>
+                      <p className="cart-item-description">{item.description.substring(0, 80)}...</p>
+                      <p>Quantity: {item.quantity > 0 ? item.quantity : 1}</p>
+                      <p className="cart-item-price">${item.price.toFixed(2)}</p>
+                    </div>
+                    <div className="trash-icon">
+                      <button onClick={() => handleRemoveFromCart(item.id)}>
+                        <span><FaTrash /></span>
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="total-price">Total: ${totalPrice.toFixed(2)}</div>
+              <div className="buttons">
+                <button className="continue-shopping">
+                  <Link to="/">Continue shopping</Link>
+                </button>
+                <ButtonWithModal setCart={setCart} setCount={setCount} />
+              </div>
+            </CountProvider>
+          </CartProvider>
+        )
+      }
+    </div >
   );
 };
 

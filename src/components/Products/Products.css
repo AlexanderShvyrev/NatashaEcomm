@@ -6,6 +6,7 @@
   
   .product-card {
     border: 1px solid #ccc;
+    position:relative;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
@@ -18,7 +19,7 @@
   
   .product-image {
     height: 200px;
-    width: 300px;
+    width: 100%;
     object-fit: cover;
   }
   
@@ -36,17 +37,49 @@
   }
   
   .product-button {
-    background-color: #007bff;
+    background-color: #fff;
     border: none;
-    color: #fff;
+    color: #cda9ac;
+    border: 1px solid #cda9ac;
+    border-radius: 2px;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     margin: 0px 0px 10px 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+  } 
   
   .product-button:hover {
-    background-color: #0069d9;
+    background: #BA7E7E;
+    transition: all 0.4s ease-in-out;
+    color:#fff;
+  }
+
+  .favorited{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: small;
+    position: absolute;
+    top:10px;
+    right: 10px;
+  }
+
+  .favorites-button {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    margin: 0px 0px 10px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top:10px;
+    right: 10px;
   }
   
+  .favorites-button:hover {
+    background-color: transparent;
+  }
